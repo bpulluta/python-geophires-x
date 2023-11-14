@@ -48,6 +48,7 @@ Free software: `MIT license <LICENSE>`__
     :target: https://pypi.org/project/geophires-x
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .. |commits-since| image:: https://img.shields.io/github/commits-since/NREL/python-geophires-x/v3.2.8.svg
     :alt: Commits since latest release
     :target: https://github.com/NREL/python-geophires-x/compare/v3.2.8...main
@@ -56,6 +57,11 @@ Free software: `MIT license <LICENSE>`__
     :alt: Commits since latest release
     :target: https://github.com/NREL/python-geophires-x/compare/v3.2.6...main
 >>>>>>> 1105650 (Bump version: 3.2.5 → 3.2.6)
+=======
+.. |commits-since| image:: https://img.shields.io/github/commits-since/NREL/python-geophires-x/v3.2.7.svg
+    :alt: Commits since latest release
+    :target: https://github.com/NREL/python-geophires-x/compare/v3.2.7...main
+>>>>>>> ff1cc9b (Bump version: 3.2.6 → 3.2.7)
 
 .. |docs| image:: https://readthedocs.org/projects/python-geophires-x/badge/?style=flat
     :target: https://nrel.github.io/python-geophires-x
