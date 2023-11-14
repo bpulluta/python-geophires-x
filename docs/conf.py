@@ -18,7 +18,11 @@ project = 'geophires-x'
 year = '2023'
 author = 'NREL'
 copyright = f'{year}, {author}'
+<<<<<<< HEAD
 version = release = '3.2.8'
+=======
+version = release = '3.2.6'
+>>>>>>> 1105650 (Bump version: 3.2.5 → 3.2.6)
 
 pygments_style = 'trac'
 templates_path = ['./templates']
