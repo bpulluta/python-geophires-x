@@ -194,19 +194,7 @@ def ReadParameter(ParameterReadIn: ParameterEntry, ParamToModify, model):
     :type model: :class:`~geophires_x.Model.Model`
     :return: None
     """
-<<<<<<< HEAD
-    import logging
-    # Save current logger level
-    original_log_level = model.logger.getEffectiveLevel()
-
-    # Set logger to a higher level to suppress warnings
-    model.logger.setLevel(logging.ERROR)
-    
     model.logger.info("Init " + str(__name__) + ": " + sys._getframe().f_code.co_name + " for " + ParamToModify.Name)
-=======
-    model.logger.info(f'Init {str(__name__)}: {sys._getframe().f_code.co_name} for {ParamToModify.Name}')
-
->>>>>>> 3914a6a (Raise ValueError instead of sys.exit when parameter outside range)
     # these Parameter Types don't have units so don't do anything fancy, and ignore it if the user has supplied units
     if isinstance(ParamToModify, boolParameter) or isinstance(ParamToModify, strParameter):
         if isinstance(ParamToModify, boolParameter):
