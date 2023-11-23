@@ -142,6 +142,44 @@ You may also pass parameters as a text file:
 
 `test_geophires_x.py <tests/test_geophires_x.py>`__ has additional examples of how to consume and call `GeophiresXClient <src/geophires_x_client/__init__.py#L14>`__.
 
+Command Line
+^^^^^^^^^^^^
+
+If you installed with pip, you may run GEOPHIRES from the command line, passing your input file as an argument::
+
+   python -mgeophires_x my_geophires_input.txt
+
+Parameters
+^^^^^^^^^^
+
+Available parameters are documented in the `Parameters Reference <https://nrel.github.io/python-geophires-x/parameters.html>`__.
+
+Examples
+^^^^^^^^
+
+A variety of example input ``.txt`` files are available in the `tests/examples directory of the repository <tests/examples>`__:
+
+- `example1.txt <tests/examples/example1.txt>`__
+- `example1_addons.txt <tests/examples/example1_addons.txt>`__
+- `example2.txt <tests/examples/example2.txt>`__
+- `example3.txt <tests/examples/example3.txt>`__
+- `example4.txt <tests/examples/example4.txt>`__
+- `example5.txt <tests/examples/example5.txt>`__
+- `example8.txt <tests/examples/example8.txt>`__
+- `example9.txt <tests/examples/example9.txt>`__
+- `example10_HP.txt <tests/examples/example10_HP.txt>`__
+- `example11_AC.txt <tests/examples/example11_AC.txt>`__
+- `example12_DH.txt <tests/examples/example12_DH.txt>`__
+- `Beckers_et_al_2023_Tabulated_Database_Coaxial_sCO2_heat.txt <tests/examples/Beckers_et_al_2023_Tabulated_Database_Coaxial_sCO2_heat.txt>`__
+- `Beckers_et_al_2023_Tabulated_Database_Coaxial_water_heat.txt <tests/examples/Beckers_et_al_2023_Tabulated_Database_Coaxial_water_heat.txt>`__
+- `Beckers_et_al_2023_Tabulated_Database_Uloop_sCO2_elec.txt <tests/examples/Beckers_et_al_2023_Tabulated_Database_Uloop_sCO2_elec.txt>`__
+- `Beckers_et_al_2023_Tabulated_Database_Uloop_sCO2_heat.txt <tests/examples/Beckers_et_al_2023_Tabulated_Database_Uloop_sCO2_heat.txt>`__
+- `Beckers_et_al_2023_Tabulated_Database_Uloop_water_elec.txt <tests/examples/Beckers_et_al_2023_Tabulated_Database_Uloop_water_elec.txt>`__
+- `Beckers_et_al_2023_Tabulated_Database_Uloop_water_heat.txt <tests/examples/Beckers_et_al_2023_Tabulated_Database_Uloop_water_heat.txt>`__
+- `SUTRAExample1.txt <tests/examples/SUTRAExample1.txt>`__
+- `example_multiple_gradients.txt <tests/examples/example_multiple_gradients.txt>`__
+
+
 Documentation
 =============
 
