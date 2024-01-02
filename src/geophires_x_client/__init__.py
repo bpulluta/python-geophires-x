@@ -27,7 +27,7 @@ class GeophiresXClient:
 
         sys.argv = ['', input_params.as_file_path(), input_params.get_output_file_path()]
         try:
-            geophires.main(enable_geophires_logging_config=False)
+            geophires.main(enable_geophires_logging_config=True)
         except Exception as e:
             raise RuntimeError(f'GEOPHIRES encountered an exception: {e!s}') from e
         except SystemExit:

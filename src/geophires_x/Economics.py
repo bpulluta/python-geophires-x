@@ -1876,7 +1876,7 @@ class Economics:
             #     self.C1well = (0.2818 * checkdepth ** 2 + 1275.5213 * checkdepth + 632315.) * 1E-6
             # elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE:
             #     self.C1well = (0.2553 * checkdepth ** 2 + 1716.7157 * checkdepth + 500867.) * 1E-6
-            if self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_BASE:
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_BASE:
                 self.C1well = (0.281801107 * checkdepth ** 2 + 1275.521301 * checkdepth + 632315.1264) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT1:
                 self.C1well = (0.189267288 * checkdepth ** 2 + 293.4517365 * checkdepth + 1326526.313) * 1E-6

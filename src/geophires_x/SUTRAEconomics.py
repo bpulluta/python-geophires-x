@@ -147,8 +147,8 @@ class SUTRAEconomics:
         # )
         self.wellcorrelation = self.ParameterDict[self.wellcorrelation.Name] = intParameter(
             "Well Drilling Cost Correlation",
-            value=WellDrillingCostCorrelation.VERTICAL_SMALL_BASE,  # Default value updated
-            DefaultValue=WellDrillingCostCorrelation.VERTICAL_SMALL_BASE,  # Default value updated
+            value=WellDrillingCostCorrelation.VERTICAL_SMALL_INT1,  # Default value updated
+            DefaultValue=WellDrillingCostCorrelation.VERTICAL_SMALL_INT1,  # Default value updated
             AllowableRange=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],  # Range updated to include all options
             UnitType=Units.NONE,
             ErrMessage="assume default well drilling cost correlation (1)",
@@ -450,48 +450,47 @@ class SUTRAEconomics:
         #         self.C1well = (0.2818 * model.reserv.depth.value ** 2 + 1275.5213 * model.reserv.depth.value + 632315.) * 1E-6
         #     elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE:
         #         self.C1well = (0.2553 * model.reserv.depth.value ** 2 + 1716.7157 * model.reserv.depth.value + 500867.) * 1E-6
+        # Drilling
         self.C1well = 0
         if self.ccwellfixed.Valid:
             self.C1well = self.ccwellfixed.value
-            self.Cwell.value = self.C1well * (model.wellbores.nprod.value + model.wellbores.ninj.value)
+            self.Cwell.value = self.C1well*(model.wellbores.nprod.value+model.wellbores.ninj.value)
         else:
-            depth = model.reserv.depth.value
-            if depth > 7000.0 or depth < 500:
+            if (model.reserv.depth.value > 7000.0 or model.reserv.depth.value < 500):
                 print("Warning: simple user-specified cost per meter used for drilling depth < 500 or > 7000 m")
                 model.logger.warning("Warning: simple user-specified cost per meter used for drilling depth < 500 or > 7000 m")
-            
             if self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_BASE:
-                self.C1well = (0.281801107 * depth ** 2 + 1275.521301 * depth + 632315.1264) * 1E-6
+                self.C1well = (0.281801107 * model.reserv.depth.value ** 2 + 1275.521301 * model.reserv.depth.value + 632315.1264) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT1:
-                self.C1well = (0.189267288 * depth ** 2 + 293.4517365 * depth + 1326526.313) * 1E-6
+                self.C1well = (0.189267288 * model.reserv.depth.value ** 2 + 293.4517365 * model.reserv.depth.value + 1326526.313) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT2:
-                self.C1well = (0.003145418 * depth ** 2 + 782.70 * depth + 983620.25) * 1E-6
+                self.C1well = (0.003145418 * model.reserv.depth.value ** 2 + 782.70 * model.reserv.depth.value + 983620.25) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_IDEAL:
-                self.C1well = (-0.002397497 * depth ** 2 + 752.94 * depth + 524337.65) * 1E-6
+                self.C1well = (-0.002397497 * model.reserv.depth.value ** 2 + 752.94 * model.reserv.depth.value + 524337.65) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_BASE:
-                self.C1well = (0.2528 * depth ** 2 + 1716.72 * depth + 500866.89) * 1E-6
+                self.C1well = (0.2528 * model.reserv.depth.value ** 2 + 1716.72 * model.reserv.depth.value + 500866.89) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT1:
-                self.C1well = (0.19950 * depth ** 2 + 296.13 * depth + 1697867.71) * 1E-6
+                self.C1well = (0.19950 * model.reserv.depth.value ** 2 + 296.13 * model.reserv.depth.value + 1697867.71) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT2:
-                self.C1well = (0.0038019 * depth ** 2 + 838.90 * depth + 1181947.04) * 1E-6
+                self.C1well = (0.0038019 * model.reserv.depth.value ** 2 + 838.90 * model.reserv.depth.value + 1181947.04) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_IDEAL:
-                self.C1well = (0.0037570 * depth ** 2 + 762.53 * depth + 765103.08) * 1E-6
+                self.C1well = (0.0037570 * model.reserv.depth.value ** 2 + 762.53 * model.reserv.depth.value + 765103.08) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_BASE:
-                self.C1well = (0.30212 * depth ** 2 + 584.91 * depth + 751368.47) * 1E-6
+                self.C1well = (0.30212 * model.reserv.depth.value ** 2 + 584.91 * model.reserv.depth.value + 751368.47) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT1:
-                self.C1well = (0.13710 * depth ** 2 + 129.61 * depth + 1205587.57) * 1E-6
+                self.C1well = (0.13710 * model.reserv.depth.value ** 2 + 129.61 * model.reserv.depth.value + 1205587.57) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT2:
-                self.C1well = (0.0080395 * depth ** 2 + 455.61 * depth + 921007.69) * 1E-6
+                self.C1well = (0.0080395 * model.reserv.depth.value ** 2 + 455.61 * model.reserv.depth.value + 921007.69) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_IDEAL:
-                self.C1well = (0.0025212 * depth ** 2 + 439.45 * depth + 590611.90) * 1E-6
+                self.C1well = (0.0025212 * model.reserv.depth.value ** 2 + 439.45 * model.reserv.depth.value + 590611.90) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_BASE:
-                self.C1well = (0.28977 * depth ** 2 + 882.15 * depth + 680562.50) * 1E-6
+                self.C1well = (0.28977 * model.reserv.depth.value ** 2 + 882.15 * model.reserv.depth.value + 680562.50) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_INT1:
-                self.C1well = (0.15340 * depth ** 2 + 120.32 * depth + 1431801.54) * 1E-6
+                self.C1well = (0.15340 * model.reserv.depth.value ** 2 + 120.32 * model.reserv.depth.value + 1431801.54) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_INT2:
-                self.C1well = (0.0085389 * depth ** 2 + 506.08 * depth + 1057330.39) * 1E-6
+                self.C1well = (0.0085389 * model.reserv.depth.value ** 2 + 506.08 * model.reserv.depth.value + 1057330.39) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_IDEAL:
-                self.C1well = (0.0071869 * depth ** 2 + 455.85 * depth + 753377.73) * 1E-6
+                self.C1well = (0.0071869 * model.reserv.depth.value ** 2 + 455.85 * model.reserv.depth.value + 753377.73) * 1E-6
             self.C1well = self.C1well*self.ccwelladjfactor.value
             self.Cwell.value = self.C1well * (model.wellbores.nprod.value + model.wellbores.ninj.value)
 
