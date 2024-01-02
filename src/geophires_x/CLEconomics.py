@@ -64,16 +64,34 @@ class CLEconomics:
             Valid=True,
             ToolTipText="Horizontal Well Drilling and Completion Capital Cost Adjustment Factor"
         )
+        # self.horizontalwellcorrelation = self.ParameterDict[self.horizontalwellcorrelation.Name] = intParameter(
+        #     "Horizontal Well Drilling Cost Correlation",
+        #     value=WellDrillingCostCorrelation.VERTICAL_SMALL,
+        #     DefaultValue=WellDrillingCostCorrelation.VERTICAL_SMALL,
+        #     AllowableRange=[1, 2, 3, 4, 5],
+        #     UnitType=Units.NONE,
+        #     ErrMessage="assume default horizontal well drilling cost correlation (1)",
+        #     ToolTipText="Select the built-in horizontal well drilling and completion cost correlation. 1: \
+        #     vertical open-hole, small diameter; 2: deviated liner, small diameter; 3: vertical open-hole, \
+        #     large diameter; 4: deviated liner, large diameter; 5: Simple - user specified cost per meter"
+        # )
         self.horizontalwellcorrelation = self.ParameterDict[self.horizontalwellcorrelation.Name] = intParameter(
             "Horizontal Well Drilling Cost Correlation",
-            value=WellDrillingCostCorrelation.VERTICAL_SMALL,
-            DefaultValue=WellDrillingCostCorrelation.VERTICAL_SMALL,
-            AllowableRange=[1, 2, 3, 4, 5],
+            value=WellDrillingCostCorrelation.VERTICAL_SMALL_INT1,  # Default value updated
+            DefaultValue=WellDrillingCostCorrelation.VERTICAL_SMALL_INT1,  # Default value updated
+            AllowableRange=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],  # Range updated to include all options
             UnitType=Units.NONE,
             ErrMessage="assume default horizontal well drilling cost correlation (1)",
-            ToolTipText="Select the built-in horizontal well drilling and completion cost correlation. 1: \
-            vertical open-hole, small diameter; 2: deviated liner, small diameter; 3: vertical open-hole, \
-            large diameter; 4: deviated liner, large diameter; 5: Simple - user specified cost per meter"
+            ToolTipText="Select the built-in horizontal well drilling and completion cost correlation: " +
+                        "1: Vertical Small Diameter, Baseline; 2: Vertical Small Diameter, Intermediate1; " +
+                        "3: Vertical Small Diameter, Intermediate2; 4: Vertical Small Diameter, Ideal; " +
+                        "5: Deviated Small Diameter, Baseline; 6: Deviated Small Diameter, Intermediate1; " +
+                        "7: Deviated Small Diameter, Intermediate2; 8: Deviated Small Diameter, Ideal; " +
+                        "9: Vertical Large Diameter, Baseline; 10: Vertical Large Diameter, Intermediate1; " +
+                        "11: Vertical Large Diameter, Intermediate2; 12: Vertical Large Diameter, Ideal; " +
+                        "13: Deviated Large Diameter, Baseline; 14: Deviated Large Diameter, Intermediate1; " +
+                        "15: Deviated Large Diameter, Intermediate2; 16: Deviated Large Diameter, Ideal; " +
+                        "17: Simple - user specified cost per meter"  # Assuming 'Simple' is still an option
         )
         self.Vertical_drilling_cost_per_m = self.ParameterDict[self.Vertical_drilling_cost_per_m.Name] = floatParameter(
             "All-in Vertical Drilling Costs",
@@ -159,15 +177,50 @@ class CLEconomics:
                     ReadParameter(ParameterReadIn, ParameterToModify, model)  # this should handle the non-special cases
 
                     # handle special cases
-                    if ParameterToModify.Name == "Horizontal Well Drilling Cost Correlation":
+                    # if ParameterToModify.Name == "Horizontal Well Drilling Cost Correlation":
+                    #     if ParameterReadIn.sValue == '1':
+                    #         ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_SMALL
+                    #     elif ParameterReadIn.sValue == '2':
+                    #         ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_SMALL
+                    #     elif ParameterReadIn.sValue == '3':
+                    #         ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_LARGE
+                    #     elif ParameterReadIn.sValue == '4':
+                    #         ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_LARGE
+                    #     else:
+                    #         ParameterToModify.value = WellDrillingCostCorrelation.SIMPLE
+                    if ParameterToModify.Name == "Well Drilling Cost Correlation":
                         if ParameterReadIn.sValue == '1':
-                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_SMALL
+                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_SMALL_BASE
                         elif ParameterReadIn.sValue == '2':
-                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_SMALL
+                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_SMALL_INT1
                         elif ParameterReadIn.sValue == '3':
-                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_LARGE
+                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_SMALL_INT2
                         elif ParameterReadIn.sValue == '4':
-                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_LARGE
+                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_SMALL_IDEAL
+                        elif ParameterReadIn.sValue == '5':
+                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_SMALL_BASE
+                        elif ParameterReadIn.sValue == '6':
+                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_SMALL_INT1
+                        elif ParameterReadIn.sValue == '7':
+                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_SMALL_INT2
+                        elif ParameterReadIn.sValue == '8':
+                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_SMALL_IDEAL
+                        elif ParameterReadIn.sValue == '9':
+                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_LARGE_BASE
+                        elif ParameterReadIn.sValue == '10':
+                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_LARGE_INT1
+                        elif ParameterReadIn.sValue == '11':
+                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_LARGE_INT2
+                        elif ParameterReadIn.sValue == '12':
+                            ParameterToModify.value = WellDrillingCostCorrelation.VERTICAL_LARGE_IDEAL
+                        elif ParameterReadIn.sValue == '13':
+                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_LARGE_BASE
+                        elif ParameterReadIn.sValue == '14':
+                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_LARGE_INT1
+                        elif ParameterReadIn.sValue == '15':
+                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_LARGE_INT2
+                        elif ParameterReadIn.sValue == '16':
+                            ParameterToModify.value = WellDrillingCostCorrelation.DEVIATED_LARGE_IDEAL
                         else:
                             ParameterToModify.value = WellDrillingCostCorrelation.SIMPLE
                     elif ParameterToModify.Name == "Horizontal Well Drilling and Completion Capital Cost Adjustment Factor":
@@ -224,25 +277,60 @@ class CLEconomics:
         # -------------
         # capital costs
         # -------------
-        # horizontal well costs. These are calculated whether or not totalcapcostvalid = 1
-        if self.horizontalccwellfixed.Valid:  # increment the cost of wells by the cost of the horizontal sections give by user
+        if self.horizontalccwellfixed.Valid:  # increment the cost of wells by the cost of the horizontal sect
+        # horizontal well costs. These are calculated whether or not totalcapcostvalid = 1ions give by user
             self.C1well.value = self.horizontalccwellfixed.value
             self.CHorizwell.value = 1.05 * self.C1well.value * model.clwellbores.numhorizontalsections.value  # 1.05 for 5% indirect cost
             model.economics.Cwell.value = model.economics.Cwell.value + self.CHorizwell.value
+        # else:
+            # # well drilling and completion cost in M$/well
+            # if self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL:
+            #     self.C1well.value = (
+            #                                 0.3021 * model.clwellbores.l_pipe.value ** 2 + 584.9112 * model.clwellbores.l_pipe.value + 751368.) * 1E-6
+            # elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL:
+            #     self.C1well.value = (
+            #                                 0.2898 * model.clwellbores.l_pipe.value ** 2 + 822.1507 * model.clwellbores.l_pipe.value + 680563.) * 1E-6
+            # elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE:
+            #     self.C1well.value = (
+            #                                 0.2818 * model.clwellbores.l_pipe.value ** 2 + 1275.5213 * model.clwellbores.l_pipe.value + 632315.) * 1E-6
+            # elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE:
+            #     self.C1well.value = (
+            #                                 0.2553 * model.clwellbores.l_pipe.value ** 2 + 1716.7157 * model.clwellbores.l_pipe.value + 500867.) * 1E-6
         else:
-            # well drilling and completion cost in M$/well
-            if self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL:
-                self.C1well.value = (
-                                            0.3021 * model.clwellbores.l_pipe.value ** 2 + 584.9112 * model.clwellbores.l_pipe.value + 751368.) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL:
-                self.C1well.value = (
-                                            0.2898 * model.clwellbores.l_pipe.value ** 2 + 822.1507 * model.clwellbores.l_pipe.value + 680563.) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE:
-                self.C1well.value = (
-                                            0.2818 * model.clwellbores.l_pipe.value ** 2 + 1275.5213 * model.clwellbores.l_pipe.value + 632315.) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE:
-                self.C1well.value = (
-                                            0.2553 * model.clwellbores.l_pipe.value ** 2 + 1716.7157 * model.clwellbores.l_pipe.value + 500867.) * 1E-6
+            checkdepth = model.clwellbores.l_pipe.value  # Depth of the well
+
+            if self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_BASE:
+                self.C1well.value = (0.281801107 * checkdepth ** 2 + 1275.521301 * checkdepth + 632315.1264) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT1:
+                self.C1well.value = (0.189267288 * checkdepth ** 2 + 293.4517365 * checkdepth + 1326526.313) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT2:
+                self.C1well.value = (0.003145418 * checkdepth ** 2 + 782.70 * checkdepth + 983620.25) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_IDEAL:
+                self.C1well.value = (-0.002397497 * checkdepth ** 2 + 752.94 * checkdepth + 524337.65) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_BASE:
+                self.C1well.value = (0.2528 * checkdepth ** 2 + 1716.72 * checkdepth + 500866.89) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT1:
+                self.C1well.value = (0.19950 * checkdepth ** 2 + 296.13 * checkdepth + 1697867.71) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT2:
+                self.C1well.value = (0.0038019 * checkdepth ** 2 + 838.90 * checkdepth + 1181947.04) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_IDEAL:
+                self.C1well.value = (0.0037570 * checkdepth ** 2 + 762.53 * checkdepth + 765103.08) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_BASE:
+                self.C1well.value = (0.30212 * checkdepth ** 2 + 584.91 * checkdepth + 751368.47) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT1:
+                self.C1well.value = (0.13710 * checkdepth ** 2 + 129.61 * checkdepth + 1205587.57) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT2:
+                self.C1well.value = (0.0080395 * checkdepth ** 2 + 455.61 * checkdepth + 921007.69) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_IDEAL:
+                self.C1well.value = (0.0025212 * checkdepth ** 2 + 439.45 * checkdepth + 590611.90) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_BASE:
+                self.C1well.value = (0.28977 * checkdepth ** 2 + 882.15 * checkdepth + 680562.50) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_INT1:
+                self.C1well.value = (0.15340 * checkdepth ** 2 + 120.32 * checkdepth + 1431801.54) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_INT2:
+                self.C1well.value = (0.0085389 * checkdepth ** 2 + 506.08 * checkdepth + 1057330.39) * 1E-6
+            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_IDEAL:
+                self.C1well.value = (0.0071869 * checkdepth ** 2 + 455.85 * checkdepth + 753377.73) * 1E-6
             else:
                 # MIR MIR MIR
                 pass
