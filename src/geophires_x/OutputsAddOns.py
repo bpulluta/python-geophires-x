@@ -75,20 +75,25 @@ class OutputsAddOns(Outputs):
 
                     ae = model.addeconomics
                     f.write("Start    ("
-                            + ae.ElecPrice.PreferredUnits.value +
-                            ")(" + ae.AddOnElecRevenue.PreferredUnits.value +
-                            ") (" + ae.HeatPrice.PreferredUnits.value +
-                            ")(" + ae.AddOnHeatRevenue.PreferredUnits.value +
-                            ") (" + ae.AddOnRevenue.PreferredUnits.value +
-                            ")    (" + ae.AddOnCashFlow.PreferredUnits.value +
-                            ")  (" + ae.AddOnCummCashFlow.PreferredUnits.value +
-                            ")       (" + ae.ProjectCashFlow.PreferredUnits.value +
-                            ")        (" + ae.ProjectCummCashFlow.PreferredUnits.value + ")\n")
-                    # running years...
-                    for ii in range(0, (
-                        model.surfaceplant.ConstructionYears.value + model.surfaceplant.plantlifetime.value - 1), 1):
-                        f.write(
-                            f"   {ii + 1:3.0f}    {model.economics.ElecPrice.value[ii]:5.3f}   {model.addeconomics.AddOnElecRevenue.value[ii]:5.4f}        {model.economics.HeatPrice.value[ii]:5.3f}   {model.addeconomics.AddOnHeatRevenue.value[ii]:5.4f}        {model.addeconomics.AddOnRevenue.value[ii]:5.2f}        {model.addeconomics.AddOnCashFlow.value[ii]:5.2f}     {model.addeconomics.AddOnCummCashFlow.value[ii]:5.2f}        {model.addeconomics.ProjectCashFlow.value[ii]:5.2f}           {model.addeconomics.ProjectCummCashFlow.value[ii]:5.2f}\n")
+                                        + model.addeconomics.ElecPrice.PreferredUnits.value +
+                                         ")(" + model.addeconomics.AddOnElecRevenue.PreferredUnits.value +
+                                                   ") (" + model.addeconomics.HeatPrice.PreferredUnits.value +
+                                                                ")(" + model.addeconomics.AddOnHeatRevenue.PreferredUnits.value +
+                                                                         ") (" + model.addeconomics.AddOnRevenue.PreferredUnits.value +
+                                                                                ")    (" + model.addeconomics.AddOnCashFlow.PreferredUnits.value +
+                                                                                        ")  (" + model.addeconomics.AddOnCummCashFlow.PreferredUnits.value +
+                                                                                ")       (" + model.addeconomics.ProjectCashFlow.PreferredUnits.value +
+                                                                                        ")        (" + model.addeconomics.ProjectCummCashFlow.PreferredUnits.value+")" + NL)
+                    i = 0
+                    for i in range(0, model.surfaceplant.ConstructionYears.value, 1):
+                        # construction years...
+                        f.write(f"   {i+1:3.0f}                                                            {model.addeconomics.AddOnCashFlow.value[i]:5.2f}     {model.addeconomics.AddOnCummCashFlow.value[i]:5.2f}      {model.addeconomics.ProjectCashFlow.value[i]:5.2f}           {model.addeconomics.ProjectCummCashFlow.value[i]:5.2f}" + NL)
+                        i = i + 1
+                    ii = 0
+                    for ii in range(0, (model.surfaceplant.ConstructionYears.value + model.surfaceplant.plantlifetime.value - 1), 1):
+                        # running years...
+                        f.write(f"   {i+1:3.0f}    {model.economics.ElecPrice.value[ii]:5.3f}   {model.addeconomics.AddOnElecRevenue.value[ii]:5.4f}        {model.economics.HeatPrice.value[ii]:5.3f}   {model.addeconomics.AddOnHeatRevenue.value[ii]:5.4f}        {model.addeconomics.AddOnRevenue.value[ii]:5.2f}        {model.addeconomics.AddOnCashFlow.value[ii]:5.2f}     {model.addeconomics.AddOnCummCashFlow.value[ii]:5.2f}        {model.addeconomics.ProjectCashFlow.value[ii]:5.2f}           {model.addeconomics.ProjectCummCashFlow.value[ii]:5.2f}" + NL)
+                        ii = ii + 1
 
         except BaseException as ex:
             tb = sys.exc_info()[2]
