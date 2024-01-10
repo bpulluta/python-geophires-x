@@ -1,6 +1,5 @@
 import sys
 from geophires_x.Outputs import Outputs
-from geophires_x.Model import Model
 
 NL = "\n"
 
@@ -9,8 +8,7 @@ class OutputsAddOns(Outputs):
     """
     Class to handle output of the AddOns values
     """
-
-    def PrintOutputs(self, model: Model):
+    def PrintOutputs(self, model):
         """
         The PrintOutputs function prints the results of the AddOns to a text file and to the screen.
         :param model: Model: The container class of the application, giving access to everything else, including the logger
