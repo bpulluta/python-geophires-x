@@ -8,7 +8,9 @@ class OutputsAddOns(Outputs):
     """
     Class to handle output of the AddOns values
     """
+
     def PrintOutputs(self, model):
+
         """
         The PrintOutputs function prints the results of the AddOns to a text file and to the screen.
         :param model: Model: The container class of the application, giving access to everything else, including the logger
