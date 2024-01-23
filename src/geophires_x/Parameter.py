@@ -501,6 +501,7 @@ def ConvertUnits(ParamToModify, strUnit: str, model) -> str:
                 + ParamToModify.PreferredUnits.value
                 + "to continue. Cannot continue unless you do.  Exiting."
             )
+            # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
         New_val = (conv_rate * float(val)) * Factor
         strUnit = str(New_val)
@@ -581,6 +582,7 @@ def ConvertUnits(ParamToModify, strUnit: str, model) -> str:
                     + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
                     + " Exiting."
                 )
+                # FIXME raise appropriate exception instead of sys.exit()
                 sys.exit()
 
             # set sValue to the value based on the new units - don't add units to it - it should just be a raw number
@@ -607,7 +609,7 @@ def ConvertUnitsBack(ParamToModify, model):
     :type model: :class:`~geophires_x.Model.Model`
     :return: None
     """
-    model.logger.info("Init " + str(__name__) + ": " + sys._getframe().f_code.co_name + " for " + ParamToModify.Name)
+    model.logger.info(f'Init {str(__name__)}: {sys._getframe().f_code.co_name} for {ParamToModify.Name}')
 
     # deal with the currency case
     if ParamToModify.UnitType in [Units.CURRENCY, Units.CURRENCYFREQUENCY, Units.COSTPERMASS, Units.ENERGYCOST]:
@@ -699,10 +701,11 @@ def ConvertUnitsBack(ParamToModify, model):
                 + ParamToModify.PreferredUnits.value
                 + "to continue. Cannot continue unless you do.  Exiting."
             )
+            # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
         ParamToModify.value = (conv_rate * float(ParamToModify.value)) / prefFactor
         ParamToModify.UnitsMatch = False
-        model.logger.info("Complete " + str(__name__) + ": " + sys._getframe().f_code.co_name)
+        model.logger.info(f'Complete {str(__name__)}: {sys._getframe().f_code.co_name}')
         return
 
     else:  # must be something other than currency
@@ -749,6 +752,7 @@ def ConvertUnitsBack(ParamToModify, model):
                 + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
                 + " Exiting."
             )
+            # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
         try:
             # update The quantity back to the current units (the units that we started with) units
@@ -779,7 +783,7 @@ def ConvertUnitsBack(ParamToModify, model):
 
         # rest the value
         ParamToModify.value = currQ.magnitude
-    model.logger.info("Complete " + str(__name__) + ": " + sys._getframe().f_code.co_name)
+    model.logger.info(f'Complete {str(__name__)}: {sys._getframe().f_code.co_name}')
 
 
 def LookupUnits(sUnitText: str):
@@ -1098,6 +1102,7 @@ def ConvertOutputUnits(oparam: OutputParameter, newUnit: Units, model):
                 + oparam.PreferredUnits.value
                 + "to continue. Cannot continue unless you do.  Exiting."
             )
+            # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
 
         symbol = cc.get_symbol(prefShort)
@@ -1151,8 +1156,9 @@ def ConvertOutputUnits(oparam: OutputParameter, newUnit: Units, model):
                 + oparam.PreferredUnits.value
                 + "to continue. Cannot continue unless you do.  Exiting."
             )
+            # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
         oparam.value = Factor * conv_rate * float(oparam.value)
         oparam.CurrentUnits = DefUnit
         oparam.UnitsMatch = False
-        model.logger.info("Complete " + str(__name__) + ": " + sys._getframe().f_code.co_name)
+        model.logger.info(f'Complete {str(__name__)}: {sys._getframe().f_code.co_name}')
