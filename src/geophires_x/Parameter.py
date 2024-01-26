@@ -235,8 +235,8 @@ def ReadParameter(ParameterReadIn: ParameterEntry, ParamToModify, model):
         # suggestion
         if New_val == ParamToModify.DefaultValue:
             if len(ParamToModify.ErrMessage) > 0:
-                print(
-                    "Warning: Parameter given ("
+                msg = (
+                    "Parameter given ("
                     + str(New_val)
                     + ") for "
                     + ParamToModify.Name
@@ -249,20 +249,8 @@ def ReadParameter(ParameterReadIn: ParameterEntry, ParamToModify, model):
                     + str(ParamToModify.DefaultValue)
                     + ")"
                 )
-                model.logger.warning(
-                    "Parameter given ("
-                    + str(New_val)
-                    + ") for "
-                    + ParamToModify.Name
-                    + " is being"
-                    + " set by the input file to a value that is the same as the default. No change was made to that value."
-                    + " Recommendation: remove the "
-                    + ParamToModify.Name
-                    + " from the input file unless you wish to"
-                    + " change it from the default value of ("
-                    + str(ParamToModify.DefaultValue)
-                    + ")"
-                )
+                print(f'Warning: {msg}')
+                model.logger.warning(msg)
             model.logger.info(f'Complete {str(__name__)}: {sys._getframe().f_code.co_name}')
             return
 
@@ -288,20 +276,7 @@ def ReadParameter(ParameterReadIn: ParameterEntry, ParamToModify, model):
         if New_val == ParamToModify.DefaultValue:
             ParamToModify.Provided = True
             if len(ParamToModify.ErrMessage) > 0:
-                print(
-                    "Warning: Parameter given ("
-                    + str(New_val)
-                    + ") for "
-                    + ParamToModify.Name
-                    + " is being set by the input file to a value that is the same as the default. No change was"
-                    + " made to that value. Recommendation: remove the "
-                    + ParamToModify.Name
-                    + " from the input file"
-                    + " unless you wish to change it from the default value of ("
-                    + str(ParamToModify.DefaultValue)
-                    + ")"
-                )
-                model.logger.warning(
+                msg = (
                     "Parameter given ("
                     + str(New_val)
                     + ") for "
@@ -314,6 +289,8 @@ def ReadParameter(ParameterReadIn: ParameterEntry, ParamToModify, model):
                     + str(ParamToModify.DefaultValue)
                     + ")"
                 )
+                print(f'Warning: {msg}')
+                model.logger.warning(msg)
             model.logger.info(f'Complete {str(__name__)}: {sys._getframe().f_code.co_name}')
         if New_val == ParamToModify.value:
             # We have nothing to change - user provide value that was the same as the
@@ -336,15 +313,7 @@ def ReadParameter(ParameterReadIn: ParameterEntry, ParamToModify, model):
         if (New_val < float(ParamToModify.Min)) or (New_val > float(ParamToModify.Max)):
             # user provided value is out of range, so announce it, leave set to whatever it was set to (default value)
             if len(ParamToModify.ErrMessage) > 0:
-                print(
-                    "Warning: Parameter given ("
-                    + str(New_val)
-                    + ") for "
-                    + ParamToModify.Name
-                    + " outside of valid range. GEOPHIRES will "
-                    + ParamToModify.ErrMessage
-                )
-                model.logger.warning(
+                msg = (
                     "Parameter given ("
                     + str(New_val)
                     + ") for "
@@ -352,6 +321,8 @@ def ReadParameter(ParameterReadIn: ParameterEntry, ParamToModify, model):
                     + " outside of valid range. GEOPHIRES will "
                     + ParamToModify.ErrMessage
                 )
+                print(f'Warning: {msg}')
+                model.logger.warning(msg)
             model.logger.info(f'Complete {str(__name__)}: {sys._getframe().f_code.co_name}')
             return
         # All is good.  With a list, we have to use the last character of the Description to get the position.
@@ -480,7 +451,7 @@ def ConvertUnits(ParamToModify, strUnit: str, model) -> str:
             conv_rate = cr.get_rate(currShort, prefShort)
         except BaseException as ex:
             print(str(ex))
-            print(
+            msg = (
                 "Error: GEOPHIRES failed to convert your currency for"
                 + ParamToModify.Name
                 + " to something it understands. You gave"
@@ -490,17 +461,10 @@ def ConvertUnits(ParamToModify, strUnit: str, model) -> str:
                 + ParamToModify.PreferredUnits.value
                 + "to continue. Cannot continue unless you do.  Exiting."
             )
+            print(msg)
             model.logger.critical(str(ex))
-            model.logger.critical(
-                "Error: GEOPHIRES failed to convert your currency for"
-                + ParamToModify.Name
-                + " to something it understands. You gave "
-                + strUnit
-                + " - Are these currency units defined for"
-                + " forex-python?  or perhaps the currency server is down?  Please change your units to "
-                + ParamToModify.PreferredUnits.value
-                + "to continue. Cannot continue unless you do.  Exiting."
-            )
+            model.logger.critical(msg)
+
             # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
         New_val = (conv_rate * float(val)) * Factor
@@ -533,7 +497,7 @@ def ConvertUnits(ParamToModify, strUnit: str, model) -> str:
             New_valQ = ureg.Quantity(float(val), currType)  # Make a Pint Quantity out of the new value
         except BaseException as ex:
             print(str(ex))
-            print(
+            msg = (
                 "Error: GEOPHIRES failed to initialize your units for "
                 + ParamToModify.Name
                 + " to something it understands. You gave "
@@ -542,16 +506,11 @@ def ConvertUnits(ParamToModify, strUnit: str, model) -> str:
                 + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
                 + " Exiting."
             )
+            print(msg)
             model.logger.critical(str(ex))
-            model.logger.critical(
-                "Error: GEOPHIRES failed to initialize your units for "
-                + ParamToModify.Name
-                + " to something it understands. You gave "
-                + strUnit
-                + " - Are the units defined for Pint library,"
-                + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
-                + " Exiting."
-            )
+            model.logger.critical(msg)
+
+            # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
 
         if Old_valQ.units != New_valQ.units:  # do the transformation only if the units don't match
@@ -563,7 +522,7 @@ def ConvertUnits(ParamToModify, strUnit: str, model) -> str:
                 New_valQ.ito(Old_valQ)
             except BaseException as ex:
                 print(str(ex))
-                print(
+                msg = (
                     "Error: GEOPHIRES failed to convert your units for "
                     + ParamToModify.Name
                     + " to something it understands. You gave "
@@ -572,16 +531,10 @@ def ConvertUnits(ParamToModify, strUnit: str, model) -> str:
                     + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
                     + " Exiting."
                 )
+                print(msg)
                 model.logger.critical(str(ex))
-                model.logger.critical(
-                    "Error: GEOPHIRES failed to convert your units for "
-                    + ParamToModify.Name
-                    + " to something it understands. You gave "
-                    + strUnit
-                    + " - Are the units defined for Pint library,"
-                    + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
-                    + " Exiting."
-                )
+                model.logger.critical(msg)
+
                 # FIXME raise appropriate exception instead of sys.exit()
                 sys.exit()
 
@@ -733,7 +686,7 @@ def ConvertUnitsBack(ParamToModify, model):
                 currQ = ureg.Quantity(float(val), currType)  # Make a Pint Quantity out of the new value
         except BaseException as ex:
             print(str(ex))
-            print(
+            msg = (
                 "Error: GEOPHIRES failed to initialize your units for "
                 + ParamToModify.Name
                 + " to something it understands. You gave "
@@ -742,16 +695,10 @@ def ConvertUnitsBack(ParamToModify, model):
                 + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
                 + " Exiting."
             )
+            print(msg)
             model.logger.critical(str(ex))
-            model.logger.critical(
-                "Error: GEOPHIRES failed to initialize your units for "
-                + ParamToModify.Name
-                + " to something it understands. You gave "
-                + currType
-                + " - Are the units defined for Pint library,"
-                + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
-                + " Exiting."
-            )
+            model.logger.critical(msg)
+
             # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
         try:
@@ -760,7 +707,7 @@ def ConvertUnitsBack(ParamToModify, model):
             currQ = prefQ.to(currQ)
         except BaseException as ex:
             print(str(ex))
-            print(
+            msg = (
                 "Error: GEOPHIRES failed to convert your units for "
                 + ParamToModify.Name
                 + " to something it understands. You gave "
@@ -769,16 +716,11 @@ def ConvertUnitsBack(ParamToModify, model):
                 + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
                 + " Exiting."
             )
+            print(msg)
             model.logger.critical(str(ex))
-            model.logger.critical(
-                "Error: GEOPHIRES failed to convert your units for "
-                + ParamToModify.Name
-                + " to something it understands. You gave "
-                + currType
-                + " - Are the units defined for Pint library,"
-                + " or have you defined them in the user defined units file (GEOPHIRES3_newunits)?  Cannot continue."
-                + " Exiting."
-            )
+            model.logger.critical(msg)
+
+            # FIXME raise appropriate exception instead of sys.exit()
             sys.exit()
 
         # reset the values
