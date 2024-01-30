@@ -1,6 +1,6 @@
 function calculate_cost(geotherm_cost_prod_cost_curve_welldiam, geotherm_cost_prod_cost_curve_welltype, resource_depth)
     if geotherm_cost_prod_cost_curve_welldiam == 0 #Small Diameter
-        if geotherm_cost_prod_cost_curve_welltype == 0 #vertical
+        if geotherm_cost_prod_cost_curve_welltype == 0 #Deviated Liner
             return [ 
                 0.281801107 * resource_depth^2 + 1275.521301 * resource_depth + 632315.1264,#baseline ?
                 0.189267288 * resource_depth^2 + 293.4517365 * resource_depth + 1326526.313, #intermediate1 ?
@@ -17,7 +17,7 @@ function calculate_cost(geotherm_cost_prod_cost_curve_welldiam, geotherm_cost_pr
         end
     else
         if geotherm_cost_prod_cost_curve_welltype == 1 #Large Diameter
-            if geotherm_cost_prod_cost_curve_welltype == 0 #vertical
+            if geotherm_cost_prod_cost_curve_welltype == 0 #Deviated Liner
                 return [ 
                     0.30212 * resource_depth^2 + 584.91 * resource_depth + 751368.47, #baseline
                     0.13710 * resource_depth^2 + 129.61 * resource_depth + 1205587.57, #intermediate1

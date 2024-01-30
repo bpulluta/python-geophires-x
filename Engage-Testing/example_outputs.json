@@ -301,13 +301,16 @@
                                                              'value': 0.11},
                                              'Wellfield maintenance costs': {'unit': 'MUSD/yr',
                                                                              'value': 0.83}},
- 'POWER GENERATION PROFILE': {['YEAR',
+ 'POWER GENERATION PROFILE': {
+        [
+                                'YEAR',
                                'THERMAL DRAWDOWN',
                                'GEOFLUID TEMPERATURE (deg C)',
                                'PUMP POWER (MW)',
                                'NET POWER (MW)',
                                'NET HEAT (MW)',
-                               'FIRST LAW EFFICIENCY (%)'],
+                               'FIRST LAW EFFICIENCY (%)'
+                                 ],
                               [0,
                                1.0,
                                227.0,
@@ -315,6 +318,7 @@
                                20.9816,
                                11.9018,
                                16.7075],
+                                }
                               [1,
                                1.0,
                                227.0,

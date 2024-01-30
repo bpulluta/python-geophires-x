@@ -752,8 +752,8 @@ class Economics:
         # )
         self.wellcorrelation = self.ParameterDict[self.wellcorrelation.Name] = intParameter(
             "Well Drilling Cost Correlation",
-            value=WellDrillingCostCorrelation.VERTICAL_SMALL_INT1,  # Default value updated
-            DefaultValue=WellDrillingCostCorrelation.VERTICAL_SMALL_INT1,  # Default value updated
+            value=WellDrillingCostCorrelation.VERTICAL_LARGE_INT1,  # Default value updated
+            Defaultvalue=WellDrillingCostCorrelation.VERTICAL_LARGE_INT1,  # Default value updated
             AllowableRange=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],  # Range updated to include all options
             UnitType=Units.NONE,
             ErrMessage="assume default well drilling cost correlation (1)",
@@ -1876,38 +1876,39 @@ class Economics:
             #     self.C1well = (0.2818 * checkdepth ** 2 + 1275.5213 * checkdepth + 632315.) * 1E-6
             # elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE:
             #     self.C1well = (0.2553 * checkdepth ** 2 + 1716.7157 * checkdepth + 500867.) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_BASE:
-                self.C1well = (0.281801107 * checkdepth ** 2 + 1275.521301 * checkdepth + 632315.1264) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT1:
-                self.C1well = (0.189267288 * checkdepth ** 2 + 293.4517365 * checkdepth + 1326526.313) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT2:
-                self.C1well = (0.003145418 * checkdepth ** 2 + 782.70 * checkdepth + 983620.25) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_IDEAL:
-                self.C1well = (-0.002397497 * checkdepth ** 2 + 752.94 * checkdepth + 524337.65) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_BASE:
-                self.C1well = (0.2528 * checkdepth ** 2 + 1716.72 * checkdepth + 500866.89) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT1:
-                self.C1well = (0.19950 * checkdepth ** 2 + 296.13 * checkdepth + 1697867.71) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT2:
-                self.C1well = (0.0038019 * checkdepth ** 2 + 838.90 * checkdepth + 1181947.04) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_IDEAL:
-                self.C1well = (0.0037570 * checkdepth ** 2 + 762.53 * checkdepth + 765103.08) * 1E-6
+            if self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_BASE:
+                self.C1well = (0.30212 * checkdepth ** 2 + 584.91124 * checkdepth + 751368.47270) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_BASE:
-                self.C1well = (0.30212 * checkdepth ** 2 + 584.91 * checkdepth + 751368.47) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT1:
-                self.C1well = (0.13710 * checkdepth ** 2 + 129.61 * checkdepth + 1205587.57) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT2:
-                self.C1well = (0.0080395 * checkdepth ** 2 + 455.61 * checkdepth + 921007.69) * 1E-6
-            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_IDEAL:
-                self.C1well = (0.0025212 * checkdepth ** 2 + 439.45 * checkdepth + 590611.90) * 1E-6
+                self.C1well = (0.28180 * checkdepth ** 2 + 1275.52130 * checkdepth + 632315.12640) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_BASE:
+                self.C1well = (0.28977 * checkdepth ** 2 + 882.15067 * checkdepth + 680562.50150) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_BASE:
-                self.C1well = (0.28977 * checkdepth ** 2 + 882.15 * checkdepth + 680562.50) * 1E-6
+                self.C1well = (0.25528 * checkdepth ** 2 + 1716.71568 * checkdepth + 500866.89110) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT1:
+                self.C1well = (0.13710 * checkdepth ** 2 + 129.61033 * checkdepth + 1205587.57100) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT1:
+                self.C1well = (0.18927 * checkdepth ** 2 + 293.45174 * checkdepth + 1326526.31300) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT1:
+                self.C1well = (0.15340 * checkdepth ** 2 + 120.31700 * checkdepth + 1431801.54400) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_INT1:
-                self.C1well = (0.15340 * checkdepth ** 2 + 120.32 * checkdepth + 1431801.54) * 1E-6
+                self.C1well = (0.19950 * checkdepth ** 2 + 296.13011 * checkdepth + 1697867.70900) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT2:
+                self.C1well = (0.00804 * checkdepth ** 2 + 455.60507 * checkdepth + 921007.68680) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT2:
+                self.C1well = (0.00315 * checkdepth ** 2 + 782.69676 * checkdepth + 983620.25270) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT2:
+                self.C1well = (0.00854 * checkdepth ** 2 + 506.08357 * checkdepth + 1057330.39000) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_INT2:
-                self.C1well = (0.0085389 * checkdepth ** 2 + 506.08 * checkdepth + 1057330.39) * 1E-6
+                self.C1well = (0.00380 * checkdepth ** 2 + 838.90249 * checkdepth + 1181947.04400) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_IDEAL:
+                self.C1well = (0.00252 * checkdepth ** 2 + 439.44503 * checkdepth + 590611.90110) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_IDEAL:
+                self.C1well = (-0.00240 * checkdepth ** 2 + 752.93946 * checkdepth + 524337.65380) * 1E-6
+            elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_IDEAL:
+                self.C1well = (0.00719 * checkdepth ** 2 + 455.85233 * checkdepth + 753377.73080) * 1E-6
             elif self.wellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_IDEAL:
-                self.C1well = (0.0071869 * checkdepth ** 2 + 455.85 * checkdepth + 753377.73) * 1E-6
+                self.C1well = (0.00376 * checkdepth ** 2 + 762.52696 * checkdepth + 765103.07690) * 1E-6
+
 
             # account for adjustment factor
             self.C1well = self.ccwelladjfactor.value * self.C1well

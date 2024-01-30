@@ -77,8 +77,8 @@ class CLEconomics:
         # )
         self.horizontalwellcorrelation = self.ParameterDict[self.horizontalwellcorrelation.Name] = intParameter(
             "Horizontal Well Drilling Cost Correlation",
-            value=WellDrillingCostCorrelation.VERTICAL_SMALL_INT1,  # Default value updated
-            DefaultValue=WellDrillingCostCorrelation.VERTICAL_SMALL_INT1,  # Default value updated
+            value=WellDrillingCostCorrelation.VERTICAL_LARGE_INT1,  # Default value updated
+            Defaultvalue=WellDrillingCostCorrelation.VERTICAL_LARGE_INT1,  # Default value updated
             AllowableRange=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],  # Range updated to include all options
             UnitType=Units.NONE,
             ErrMessage="assume default horizontal well drilling cost correlation (1)",
@@ -297,38 +297,38 @@ class CLEconomics:
             #     self.C1well.value = (
             #                                 0.2553 * model.clwellbores.l_pipe.value ** 2 + 1716.7157 * model.clwellbores.l_pipe.value + 500867.) * 1E-6
         else:
-            if self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_BASE:
-                self.C1well.value = (0.281801107 * model.clwellbores.l_pipe.value ** 2 + 1275.521301 * model.clwellbores.l_pipe.value + 632315.1264) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT1:
-                self.C1well.value = (0.189267288 * model.clwellbores.l_pipe.value ** 2 + 293.4517365 * model.clwellbores.l_pipe.value + 1326526.313) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_INT2:
-                self.C1well.value = (0.003145418 * model.clwellbores.l_pipe.value ** 2 + 782.70 * model.clwellbores.l_pipe.value + 983620.25) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_SMALL_IDEAL:
-                self.C1well.value = (-0.002397497 * model.clwellbores.l_pipe.value ** 2 + 752.94 * model.clwellbores.l_pipe.value + 524337.65) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_BASE:
-                self.C1well.value = (0.2528 * model.clwellbores.l_pipe.value ** 2 + 1716.72 * model.clwellbores.l_pipe.value + 500866.89) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT1:
-                self.C1well.value = (0.19950 * model.clwellbores.l_pipe.value ** 2 + 296.13 * model.clwellbores.l_pipe.value + 1697867.71) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_INT2:
-                self.C1well.value = (0.0038019 * model.clwellbores.l_pipe.value ** 2 + 838.90 * model.clwellbores.l_pipe.value + 1181947.04) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_SMALL_IDEAL:
-                self.C1well.value = (0.0037570 * model.clwellbores.l_pipe.value ** 2 + 762.53 * model.clwellbores.l_pipe.value + 765103.08) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_BASE:
-                self.C1well.value = (0.30212 * model.clwellbores.l_pipe.value ** 2 + 584.91 * model.clwellbores.l_pipe.value + 751368.47) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT1:
-                self.C1well.value = (0.13710 * model.clwellbores.l_pipe.value ** 2 + 129.61 * model.clwellbores.l_pipe.value + 1205587.57) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_INT2:
-                self.C1well.value = (0.0080395 * model.clwellbores.l_pipe.value ** 2 + 455.61 * model.clwellbores.l_pipe.value + 921007.69) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.VERTICAL_LARGE_IDEAL:
-                self.C1well.value = (0.0025212 * model.clwellbores.l_pipe.value ** 2 + 439.45 * model.clwellbores.l_pipe.value + 590611.90) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_BASE:
-                self.C1well.value = (0.28977 * model.clwellbores.l_pipe.value ** 2 + 882.15 * model.clwellbores.l_pipe.value + 680562.50) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_INT1:
-                self.C1well.value = (0.15340 * model.clwellbores.l_pipe.value ** 2 + 120.32 * model.clwellbores.l_pipe.value + 1431801.54) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_INT2:
-                self.C1well.value = (0.0085389 * model.clwellbores.l_pipe.value ** 2 + 506.08 * model.clwellbores.l_pipe.value + 1057330.39) * 1E-6
-            elif self.horizontalwellcorrelation.value == WellDrillingCostCorrelation.DEVIATED_LARGE_IDEAL:
-                self.C1well.value = (0.0071869 * model.clwellbores.l_pipe.value ** 2 + 455.85 * model.clwellbores.l_pipe.value + 753377.73) * 1E-6
+            if self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.VERTICAL_SMALL_BASE:
+                self.C1well.value = (0.30212 * model.clwellbores.l_pipe.value ** 2 + 584.91124 * model.clwellbores.l_pipe.value + 751368.47270) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.VERTICAL_LARGE_BASE:
+                self.C1well.value = (0.28180 * model.clwellbores.l_pipe.value ** 2 + 1275.52130 * model.clwellbores.l_pipe.value + 632315.12640) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.DEVIATED_SMALL_BASE:
+                self.C1well.value = (0.28977 * model.clwellbores.l_pipe.value ** 2 + 882.15067 * model.clwellbores.l_pipe.value + 680562.50150) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.DEVIATED_LARGE_BASE:
+                self.C1well.value = (0.25528 * model.clwellbores.l_pipe.value ** 2 + 1716.71568 * model.clwellbores.l_pipe.value + 500866.89110) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.VERTICAL_SMALL_INT1:
+                self.C1well.value = (0.13710 * model.clwellbores.l_pipe.value ** 2 + 129.61033 * model.clwellbores.l_pipe.value + 1205587.57100) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.VERTICAL_LARGE_INT1:
+                self.C1well.value = (0.18927 * model.clwellbores.l_pipe.value ** 2 + 293.45174 * model.clwellbores.l_pipe.value + 1326526.31300) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.DEVIATED_SMALL_INT1:
+                self.C1well.value = (0.15340 * model.clwellbores.l_pipe.value ** 2 + 120.31700 * model.clwellbores.l_pipe.value + 1431801.54400) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.DEVIATED_LARGE_INT1:
+                self.C1well.value = (0.19950 * model.clwellbores.l_pipe.value ** 2 + 296.13011 * model.clwellbores.l_pipe.value + 1697867.70900) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.VERTICAL_SMALL_INT2:
+                self.C1well.value = (0.00804 * model.clwellbores.l_pipe.value ** 2 + 455.60507 * model.clwellbores.l_pipe.value + 921007.68680) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.VERTICAL_LARGE_INT2:
+                self.C1well.value = (0.00315 * model.clwellbores.l_pipe.value ** 2 + 782.69676 * model.clwellbores.l_pipe.value + 983620.25270) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.DEVIATED_SMALL_INT2:
+                self.C1well.value = (0.00854 * model.clwellbores.l_pipe.value ** 2 + 506.08357 * model.clwellbores.l_pipe.value + 1057330.39000) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.DEVIATED_LARGE_INT2:
+                self.C1well.value = (0.00380 * model.clwellbores.l_pipe.value ** 2 + 838.90249 * model.clwellbores.l_pipe.value + 1181947.04400) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.VERTICAL_SMALL_IDEAL:
+                self.C1well.value = (0.00252 * model.clwellbores.l_pipe.value ** 2 + 439.44503 * model.clwellbores.l_pipe.value + 590611.90110) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.VERTICAL_LARGE_IDEAL:
+                self.C1well.value = (-0.00240 * model.clwellbores.l_pipe.value ** 2 + 752.93946 * model.clwellbores.l_pipe.value + 524337.65380) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.DEVIATED_SMALL_IDEAL:
+                self.C1well.value = (0.00719 * model.clwellbores.l_pipe.value ** 2 + 455.85233 * model.clwellbores.l_pipe.value + 753377.73080) * 1E-6
+            elif self.horizontalwellcorrelation.value  == WellDrillingCostCorrelation.DEVIATED_LARGE_IDEAL:
+                self.C1well.value = (0.00376 * model.clwellbores.l_pipe.value ** 2 + 762.52696 * model.clwellbores.l_pipe.value + 765103.07690) * 1E-6
             else:
                 # MIR MIR MIR
                 pass

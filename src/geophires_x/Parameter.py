@@ -340,7 +340,7 @@ def ReadParameter(ParameterReadIn: ParameterEntry, ParamToModify, model):
         ParamToModify.Valid = True  # set Valid to true because it passed the validation tests
 
     model.logger.info("Complete " + str(__name__) + ": " + sys._getframe().f_code.co_name)
-    model.logger.setLevel(original_log_level)
+    # model.logger.setLevel(original_log_level)
 
 
 def ConvertUnits(ParamToModify, strUnit: str, model) -> str:

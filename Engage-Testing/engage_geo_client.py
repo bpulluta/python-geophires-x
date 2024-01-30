@@ -46,9 +46,12 @@ class EngageAnalysis:
         )
 
         exploration_cost = all_results.get('CAPITAL COSTS (M$)', {}).get('Exploration costs', {}).get('value', None)
+
         drill_completion_cost = (
             all_results.get('CAPITAL COSTS (M$)', {}).get('Drilling and completion costs', {}).get('value', None)
         )
+
+        total_cost = all_results.get('CAPITAL COSTS (M$)', {}).get('Total capital costs', {}).get('value', None)
 
         # OPERATING AND MAINTENANCE COSTS
         surface_plant_OM_cost = (
@@ -83,6 +86,12 @@ class EngageAnalysis:
             .get('value', None)
         )
 
+        # POWER GENERATION PROFILE
+        # Get the index of 'FIRST LAW EFFICIENCY (%)' in the header list
+        header_index = all_results['POWER GENERATION PROFILE'][0].index('FIRST LAW EFFICIENCY (%)')
+        # Extract the efficiency value using the index
+        first_law_eff = all_results['POWER GENERATION PROFILE'][1][header_index]
+
         # ECONOMIC PARAMETERS RESULTS
         lifetime = all_results.get('ECONOMIC PARAMETERS', {}).get('Project lifetime', {}).get('value', None)
 
@@ -102,6 +111,8 @@ class EngageAnalysis:
             'Average Heat Production (MWth)': avg_total_heat_gen,
             'Average Electricity Production (MWe)': avg_total_electricity_gen,
             'Lifetime': lifetime,
+            'Total capital costs ($MUSD/yr)': total_cost,
+            'Efficiency (%)': first_law_eff,
         }
 
         # Save the processed data in the cache
@@ -135,5 +146,7 @@ class EngageAnalysis:
                 'Average Heat Production (MWth)',
                 'Average Electricity Production (MWe)',
                 'Lifetime',
+                'Total capital costs ($MUSD/yr)',
+                'Efficiency (%)',
             ],
         )
