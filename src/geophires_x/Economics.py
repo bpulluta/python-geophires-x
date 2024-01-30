@@ -752,9 +752,9 @@ class Economics:
         # )
         self.wellcorrelation = self.ParameterDict[self.wellcorrelation.Name] = intParameter(
             "Well Drilling Cost Correlation",
-            value=WellDrillingCostCorrelation.VERTICAL_LARGE_INT1,  # Default value updated
-            Defaultvalue=WellDrillingCostCorrelation.VERTICAL_LARGE_INT1,  # Default value updated
-            AllowableRange=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],  # Range updated to include all options
+            value=WellDrillingCostCorrelation.VERTICAL_LARGE_INT1,
+            DefaultValue=WellDrillingCostCorrelation.VERTICAL_LARGE_INT1,
+            AllowableRange=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
             UnitType=Units.NONE,
             ErrMessage="assume default well drilling cost correlation (1)",
             ToolTipText="Select the built-in well drilling and completion cost correlation: " +
@@ -766,7 +766,7 @@ class Economics:
                         "11: Vertical Large Diameter, Intermediate2; 12: Vertical Large Diameter, Ideal; " +
                         "13: Deviated Large Diameter, Baseline; 14: Deviated Large Diameter, Intermediate1; " +
                         "15: Deviated Large Diameter, Intermediate2; 16: Deviated Large Diameter, Ideal; " +
-                        "17: Simple - user specified cost per meter"  # Assuming 'Simple' is still an option
+                        "17: Simple - user specified cost per meter"  
         )
         self.DoAddOnCalculations = self.ParameterDict[self.DoAddOnCalculations.Name] = boolParameter(
             "Do AddOn Calculations",
