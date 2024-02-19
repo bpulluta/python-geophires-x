@@ -51,13 +51,13 @@ Inflation Rate During Construction,0.05,				---[-]
 ***Capital and O&M Cost Parameters***
 *************************************
 
-Well Drilling and Completion Capital Cost Adjustment Factor,1, 	---[-] use built in correlations
-Well Drilling Cost Correlation,1,				---[-] use built in correlations
-Reservoir Stimulation Capital Cost Adjustment Factor,1,		---[-] use built in correlations
+Well Drilling and Completion Capital Cost Adjustment Factor,0, 	---[-] use built in correlations
+Well Drilling Cost Correlation,0,				---[-] use built in correlations
+Reservoir Stimulation Capital Cost Adjustment Factor,0,		---[-] use built in correlations
 Surface Plant Capital Cost Adjustment Factor,1,			---[-] use built in correlations
-Field Gathering System Capital Cost Adjustment Factor,1,	---[-] use built in correlations
-Exploration Capital Cost Adjustment Factor,1,			---[-] use built in correlations
-Wellfield O&M Cost Adjustment Factor,1,				---[-] use built in correlations
+Field Gathering System Capital Cost Adjustment Factor,0,	---[-] use built in correlations
+Exploration Capital Cost Adjustment Factor,0,			---[-] use built in correlations
+Wellfield O&M Cost Adjustment Factor,0,				---[-] use built in correlations
 Surface Plant O&M Cost Adjustment Factor,1,			---[-] use built in correlations
 Water Cost Adjustment Factor,1,					---[-] use built in correlations
 Electricity Rate,.07,							---[$/kWh]

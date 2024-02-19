@@ -1,3 +1,4 @@
+import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
@@ -49,27 +50,57 @@ def create_scatter_plot(
     unique_prod_wells,
     unique_inj_wells,
     unique_depth,
+    unique_temp,
     df,
 ):
-    plt.figure()
-    for i, val in enumerate(unique_depth):
-        mask = df['Depth (m)'] == val
-        plt.scatter(x[mask], y[mask], color=color_map(i / len(unique_depth)), label=val, s=4)
-    plt.plot(x_line, lower_line, '--', color='red', label=label)
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
+    fig, ax = plt.subplots()  # Create a figure and an axes.
+
+    # Normalize the color map based on the range of temperatures
+    norm = mcolors.Normalize(vmin=min(unique_temp), vmax=max(unique_temp))
+
+    for val in unique_temp:
+        mask = df['Average Production Temperature (degC)'] == val
+        ax.scatter(x[mask], y[mask], color=color_map(norm(val)), s=4)
+
+    # Plot the trend line
+    ax.plot(x_line, lower_line, '--', color='red', label=label)
+
+    # Add labels and title
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
 
     # Set the limits for the x and y axes
-    plt.xlim(left=0)  # This ensures the x-axis starts at 0
-    plt.ylim(bottom=0)  # This ensures the y-axis starts at 0
+    ax.set_xlim(left=0)
+    ax.set_ylim(bottom=0)
 
-    plt.legend(handles=[plt.plot([], [], color='red', ls='--', label=label)[0]])
+    # Add faint grid lines with 50% transparency
+    ax.grid(True, which='both', color='gray', linewidth=0.5, linestyle='-', alpha=0.5)
+
+    # Create the colorbar
+    sm = plt.cm.ScalarMappable(cmap=color_map, norm=norm)
+    sm.set_array([])  # This line is necessary for ScalarMappable.
+    cbar = fig.colorbar(sm, ax=ax, pad=0.01)  # Create a colorbar by specifying the axes
+    cbar.set_label('Average Production Temperature (degC)', rotation=270, labelpad=15)
+
+    # Add the trend line equation as text on the plot with a box around it
+    ax.text(
+        0.05,
+        0.95,
+        label,
+        horizontalalignment='left',
+        verticalalignment='top',
+        transform=ax.transAxes,
+        color='red',
+        bbox={'facecolor': 'white', 'alpha': 1, 'edgecolor': 'black', 'boxstyle': 'round,pad=0.5', 'linewidth': 1},
+    )
 
 
 # Function to save plots to a PDF
-def save_image(filename, fig_nums):
+def save_image(filename):
     p = PdfPages(filename)
+    # Save all plots to a PDF
+    fig_nums = plt.get_fignums()
     figs = [plt.figure(n) for n in fig_nums]
     for fig in figs:
         fig.savefig(p, format='pdf')
