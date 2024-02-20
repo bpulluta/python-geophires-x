@@ -64,6 +64,15 @@ class EngageAnalysis:
                 'Power plant maintenance costs',
             ],
             'Average Production Temperature (degC)': ['RESERVOIR SIMULATION RESULTS', 'Average Production Temperature'],
+            'Maximum Total Electricity Generation (MWe)': [
+                'SURFACE EQUIPMENT SIMULATION RESULTS',
+                'Maximum Total Electricity Generation',
+            ],
+            'Maximum Cooling Production (MW)': ['SURFACE EQUIPMENT SIMULATION RESULTS', 'Maximum Cooling Production'],
+            'Maximum Net Heat Production (MWth)': [
+                'SURFACE EQUIPMENT SIMULATION RESULTS',
+                'Maximum Net Heat Production',
+            ],
         }
 
         # Attempt to extract efficiency directly
@@ -96,7 +105,10 @@ class EngageAnalysis:
 
         # Extract values using the defined paths and update data_row
         for label, path in paths.items():
-            value = self.get_value(all_results, path if isinstance(path, list) else [path])
+            value = self.get_value(all_results, path)
+            print('============================================================')
+            print(f'Extracting {label}: Found value {value}')
+            print('============================================================')
             if value is not None:
                 data_row[label] = value
 
