@@ -21,6 +21,39 @@ class geophires_parametrization_analysis:
                 return None
         return results.get('value', None)
 
+    def calculate_ratios(self, data_row):
+        # Make sure the required data is present
+        required_keys = [
+            'Average Reservoir Heat Extraction (MWth)',
+            'Average Heat Production (MWth)',
+            'Average Electricity Production (MWe)',
+        ]
+
+        if not all(key in data_row for key in required_keys):
+            print('Required data is missing to calculate ratios.')
+            return None
+
+        # Calculate ratios
+        heat_extraction = data_row['Average Reservoir Heat Extraction (MWth)']
+        heat_production = data_row['Average Heat Production (MWth)']
+        electricity_production = data_row['Average Electricity Production (MWe)']
+
+        ratios = {
+            'Ratio Avg Reservoir Heat Extraction to Ratio Avg Reservoir Heat Extraction': heat_extraction
+            / heat_extraction
+            if heat_extraction
+            else 0.0,
+            'Ratio Avg Heat Production to Avg Reservoir Heat Extraction': heat_production / heat_extraction
+            if heat_extraction
+            else 0.0,
+            'Ratio Avg Electricity Production to Avg Reservoir Heat Extraction': electricity_production
+            / heat_extraction
+            if heat_extraction
+            else 0.0,
+        }
+
+        return ratios
+
     def process_multiple(self, input_params):
         # Initialize data_row at the beginning of the method
         data_row = {}
@@ -34,7 +67,7 @@ class geophires_parametrization_analysis:
 
         # Define paths for the values we're interested in
         paths = {
-            'Depth (m)': ['ENGINEERING PARAMETERS', 'Well depth (or total length, if not vertical)'],
+            'Depth (km)': ['ENGINEERING PARAMETERS', 'Well depth (or total length, if not vertical)'],
             'Number of Prod Wells': ['ENGINEERING PARAMETERS', 'Number of Production Wells'],
             'Number of Inj Wells': ['ENGINEERING PARAMETERS', 'Number of Injection Wells'],
             'Flow Rate per Prod Well (kg/sec)': ['ENGINEERING PARAMETERS', 'Flowrate per production well'],
@@ -106,14 +139,17 @@ class geophires_parametrization_analysis:
         # Extract values using the defined paths and update data_row
         for label, path in paths.items():
             value = self.get_value(all_results, path)
-            print('============================================================')
-            print(f'Extracting {label}: Found value {value}')
-            print('============================================================')
+
             if value is not None:
                 data_row[label] = value
 
         data_row = {k: v for k, v in data_row.items() if v is not None}
         self.results_cache[param_key] = data_row
+
+        ratios = self.calculate_ratios(data_row)
+        if ratios:
+            data_row.update(ratios)
+
         return data_row
 
     def run_iterations(self):

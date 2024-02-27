@@ -1,0 +1,10 @@
+relation,value
+elec_cap_vs_surface_cost,7331.502831202961
+elec_cap_vs_surface_o&m_cost,173.5592720880609
+therm_cap_vs_reservoir_cost,127.89295276445353
+therm_cap_vs_reservoir_o&m_cost,4.04972240065386
+therm_ext_to_therm_ext_ratio,1.0
+heat_prod_to_therm_ext_ratio,0.1875088527814393
+elec_prod_to_therm_ext_ratio,0.04278951089425109
+max_elec_gen,444.0
+max_avg_therm_ext,2976.5

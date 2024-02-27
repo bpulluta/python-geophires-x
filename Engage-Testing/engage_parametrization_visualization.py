@@ -3,6 +3,52 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
 from scipy.optimize import curve_fit
+from scipy.optimize import minimize
+
+
+def fit_lower_bound(x, y, percentile):
+    # Sort the data by x and get the lower percentile of y for each x
+    indices = x.argsort()
+    x_sorted = x[indices]
+    y_sorted = y[indices]
+
+    # Define the objective function for the linear model: y = ax + b
+    def objective(x, a, b):
+        return a * x + b
+
+    # Define an error function that will be minimized
+    def error_function(params):
+        a, b = params
+        fitted_line = objective(x_sorted, a, b)
+        # Error is a combination of distance to the lower percentile points and the y-intercept
+        return np.sum((fitted_line - y_sorted) ** 2) + b**2
+
+    # Initial guess for parameters a and b
+    initial_guess = [0, 0]
+
+    # Perform the minimization
+    result = minimize(error_function, initial_guess)
+
+    # Extract the optimized parameters
+    a_opt, b_opt = result.x
+
+    # Calculate the residuals and find the lower bound threshold
+    residuals = y_sorted - objective(x_sorted, a_opt, b_opt)
+    threshold = np.percentile(residuals, percentile)
+
+    # Adjust the y-intercept to the lower bound threshold
+    b_lower_bound = b_opt + threshold
+
+    # Generate x values for the line of best fit
+    x_line = np.asarray([np.min(x), np.max(x)])
+
+    # Calculate the y values for the lower bound line
+    lower_line = objective(x_line, a_opt, b_lower_bound)
+
+    # Create a label for the plot
+    label = f'y={a_opt:.4f}x+{b_lower_bound:.4f}'
+
+    return a_opt, b_lower_bound, x_line, lower_line, label
 
 
 def fit_linear_model(x, y, res, m_offset, b_offset):
