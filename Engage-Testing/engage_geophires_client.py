@@ -108,34 +108,6 @@ class geophires_parametrization_analysis:
             ],
         }
 
-        # Attempt to extract efficiency directly
-        # try:
-        #     if 'POWER GENERATION PROFILE' in all_results:
-        #         header_index = all_results['POWER GENERATION PROFILE'][0].index('FIRST LAW EFFICIENCY (%)')
-        #         first_law_eff = all_results['POWER GENERATION PROFILE'][1][header_index]
-        #         data_row['Efficiency (%)'] = first_law_eff
-        #     else:
-        #         data_row['Efficiency (%)'] = "N/A"
-        # except (KeyError, ValueError, IndexError) as e:
-        #     data_row['Efficiency (%)'] = "N/A"
-
-        # # Attempt to extract reservoir heat content consideration
-        # heat_content_key = 'HEAT AND/OR ELECTRICITY EXTRACTION AND GENERATION PROFILE'
-        # if heat_content_key in all_results:
-        #     negative_content_year = None
-        #     for year_data in all_results[heat_content_key][1:]:  # Skip the header row
-        #         year, *_, reservoir_heat_content = year_data
-        #         if reservoir_heat_content < 0:
-        #             negative_content_year = year
-        #             break
-
-        #     if negative_content_year:
-        #         data_row['Year Reservoir Heat Content Turns Negative'] = negative_content_year
-        #     else:
-        #         data_row['Reservoir Heat Content Status'] = f"Does not run out"
-        # else:
-        #     data_row['Reservoir Heat Content Status'] = "N/A"
-
         # Extract values using the defined paths and update data_row
         for label, path in paths.items():
             value = self.get_value(all_results, path)
