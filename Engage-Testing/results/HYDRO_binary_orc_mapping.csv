@@ -1,7 +1,7 @@
 relation,value
-elec_cap_vs_surface_cost,4510.555700099035
-elec_cap_vs_surface_om_cost,95.4330205289886
-therm_cap_vs_reservoir_cost,91.8088301678016
-therm_cap_vs_reservoir_om_cost,2.658826527012963
-max_elec_gen_mwe,679.3000000000001
-max_therm_ext_mwth,2864.6
+elec_cap_vs_surface_cost,4454.638091346148
+elec_cap_vs_surface_om_cost,86.16733767806586
+therm_cap_vs_reservoir_cost,99.4976376297016
+therm_cap_vs_reservoir_om_cost,2.3622801165793907
+max_elec_gen_mwe,1019.0
+max_therm_ext_mwth,4296.9
